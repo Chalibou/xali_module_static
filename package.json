@@ -1,0 +1,24 @@
+{
+  "name": "xali_module_static",
+  "version": "0.0.1",
+  "description": "Xali static service module",
+  "main": "xali.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chalibou/xali_module_static.git"
+  },
+  "author": "Chalibou",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chalibou/xali_module_static/issues"
+  },
+  "homepage": "https://github.com/Chalibou/xali_module_static#readme",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "https": "^1.0.0",
+    "nodemailer": "^6.4.11"
+  }
+}
