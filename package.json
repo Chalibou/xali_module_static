@@ -4,7 +4,7 @@
   "description": "Xali static service module",
   "main": "xali.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install": "node ./install/install.js"
   },
   "repository": {
     "type": "git",
