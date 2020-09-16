@@ -1,9 +1,3 @@
-//Load user info
-window.onload = async ()=>{
-    await user.getUser();
-    messenger.show(toolText.hi(user.data.name),6000);
-}
-
 //Test mail sending
 const sendMail = ()=>{
     const request = JSON.stringify({
@@ -29,6 +23,4 @@ const sendMail = ()=>{
     });
 }
 
-document.getElementById("b_mail").addEventListener("click",sendMail);
-//Logout management
-document.getElementById("b_logout").addEventListener("click",logout);
+//UI Events
