@@ -12,6 +12,7 @@ const logger = require("./logger.js");
  * @type {Object}
  */
 this.dictionary = {};
+module.exports.defaultLang = "es-ES";
 
 /**
  * Load a batch of languages in the current {@link module-templater} to be used in text translation
@@ -31,6 +32,9 @@ fs.readdirSync(`${process.cwd()}/server/lang/`).forEach(file => {
  * @param {String} lang Language of translation
  */
 module.exports.translateData = (data,lang)=>{
+    if(!this.dictionary[lang]){
+        lang = this.defaultLang;
+    }
     const dico = this.dictionary[lang];
     //Template is built as a html file with some ${var_data} to inject data
     return data.replace(

@@ -10,8 +10,8 @@ const logger = require('./logger.js');
 const templater = require('./templater.js');
 
 this.getFolder = "client";
-this.lostRoute = "/lost.html"
-this.defaultRoute = "/index.html"
+this.lostRoute = "lost.html";
+this.defaultRoute = "index.html";
 
 /**
  * Analyze the request to route it to GET or POST request management
@@ -22,11 +22,11 @@ module.exports.treat = (req,res)=>{
     //Type of request
     if(req.method === "GET"){
         //GET METHOD
-        const getRequest = req.url;
+        let getRequest = req.url;
         //Check if file exists
         logger.log("ROUTER","GET",`Responding ${req.connection.remoteAddress} for URL ${getRequest}`);
         //Solve path for '/' == index.html and no extension == .html
-        if (getRequest=="/") getRequest="/index.html";
+        if (getRequest=="/") getRequest="index.html";
         if (getRequest.indexOf(".")==-1)getRequest+=".html";
 
         //Identify file type
@@ -40,8 +40,25 @@ module.exports.treat = (req,res)=>{
                         this.respond(res,"The content you want has not been found",404);
                         return;
                     }
+                    //Get the user language in headers
+                    let lang = "";
+                    let cookie = {};
+                    if(!req.headers.cookie){
+                        lang=templater.defaultLang;
+                    }else{
+                        let cookie_array = req.headers.cookie.split('; ');
+                        for(let i=0;i<cookie_array.length;i++){
+                            const cookie_item = cookie_array[i].split('=');
+                            cookie[cookie_item[0]] = cookie_item[1];
+                        }
+                        if(!cookie.lang){
+                            lang=templater.defaultLang;
+                        }else{
+                            lang=cookie.lang;
+                        }
+                    }
                     //Translate it in the user language
-                    data = templater.translateData(data,user.lang);
+                    data = templater.translateData(data,lang);
                     //Respond
                     this.respond(res,data,200,type);
                 });
