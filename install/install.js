@@ -35,6 +35,7 @@ copy('images/logo.svg', 'client/images/logo.svg');
 copy('images/flaticon.png', 'client/images/flaticon.png');
 copy('index.html', 'client/index.html');
 copy('xali_app.js', 'xali_app.js');
+copy('lang/fr-FR.json', 'server/lang/fr-FR.json');
 copy('lang/en-EN.json', 'server/lang/en-EN.json');
 copy('lang/es-ES.json', 'server/lang/es-ES.json');
 copy('templates/standardMail.html', 'server/templates/standardMail.html');
