@@ -1,10 +1,8 @@
 /*
-
 Bleu (40,60,140,255) #283C8C
 Rouge(206, 55, 39,255) #CE3727
 Vert (29, 156, 57) #1D9C39
 Jaune(206, 156, 39) #CE9C27
-
 */
 :root{
     --bkg_main:rgb(53, 116, 187);
@@ -187,27 +185,6 @@ input:focus{
     outline: none;
 }
 
-.pwd_Wrap{
-    width: 100%;
-    display: flex;
-    align-items: center;
-}
-.eye_open{
-    background:url("/images/eye_open.png") no-repeat center center;
-    background-size: cover;
-    width: 15px;
-    height: 15px;
-    margin-left: -20px;
-    cursor: pointer;
-}
-.eye_close{
-    background:url("/images/eye_close.png") no-repeat center center;
-    background-size: cover;
-    width: 15px;
-    height: 15px;
-    margin-left: -20px;
-    cursor: pointer;
-}
 .footer_container{
     background:var(--bkg_main);
 }
@@ -219,14 +196,24 @@ footer{
     margin: auto;
     width: 80%;
 }
-
-.messenger_div{
-    background-color: none;
-    height: fit-content;
-    margin: auto auto auto 1.5rem;
-    flex: 1;
-    font-size: 1.5rem;
-    font-weight: 700;
+footer .flag{
+    height: 25px;
+    width: 25px;
+    padding:0;
+    margin: 3px;
+    border: none;
+}
+footer .french{
+    background:url("images/french.png") no-repeat center center;
+    background-size: 100%;
+}
+footer .spanish{
+    background:url("images/spanish.png") no-repeat center center;
+    background-size: 100%;
+}
+footer .english{
+    background:url("images/spanish.png") no-repeat center center;
+    background-size: 100%;
 }
 
 .modal_wrapper{

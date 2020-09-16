@@ -81,9 +81,11 @@ module.exports.treat = (req,res)=>{
         fs.readFile(`${process.cwd()}/${this.getFolder}/${getRequest}`,(error,data)=>{
             if(error){
                 this.respond(res,"The requested file does not exists.",404,type);
+                return;
             }
             //Respond
             this.respond(res,data,200,type);
+            return;
         });
     }else{
         //POST METHOD FORBIDDEN IN STATIC MODE
