@@ -37,7 +37,13 @@ module.exports.treat = (req,res)=>{
                 //Return html file with language translation
                 fs.readFile(`${process.cwd()}/${this.getFolder}/${getRequest}`,'utf-8',(error,data)=>{
                     if(error){
-                        this.respond(res,"The content you want has not been found",404);
+                        fs.readFile(`${process.cwd()}/${this.getFolder}/${this.lostRoute}`,(error,data)=>{
+                            if(error){
+                                this.respond(res,"",404);
+                                return;
+                            }
+                            this.respond(res,data);
+                        })
                         return;
                     }
                     //Get the user language in headers
@@ -74,22 +80,41 @@ module.exports.treat = (req,res)=>{
         //Return file as straem if other than html
         fs.readFile(`${process.cwd()}/${this.getFolder}/${getRequest}`,(error,data)=>{
             if(error){
-                fs.readFile(`${process.cwd()}/${this.getFolder}/${this.lostRoute}`,(error,data)=>{
-                    if(error){
-                        this.respond(res,"",404);
-                        return;
-                    }
-                    this.respond(res,data);
-                })
-                return;
+                this.respond(res,"The requested file does not exists.",404,type);
             }
             //Respond
             this.respond(res,data,200,type);
         });
     }else{
         //POST METHOD FORBIDDEN IN STATIC MODE
-        logger.log("ROUTER","POST",`Adress ${req.connection.remoteAddress} is tring to execute POST request on this service`);
-        this.respond(res,"POST Requests are forbidden on this service",303);
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+        req.on('end', async ()=>{
+            const post = JSON.parse(body);
+            logger.log("ROUTER","POST",`Adress ${req.connection.remoteAddress} is tring to execute POST-${post.type} request on this service`);
+            switch(post.type){
+                //A visitor has filled the contact form
+                case "contact":
+                    try{
+                        //Send mail to visitor
+                        const visitorMailContent = await templater.fillTemplate("visitorContact_visitor.html",post.data,post.lang);
+                        mailer.sendMail(post.data.target,post.data.subject,visitorMailContent);
+                        //Notify owner of the service
+                        const ownerMailContent = await templater.fillTemplate("visitorContact_owner.html",post.data,post.lang);
+                        mailer.sendMail(post.data.target,post.data.subject,ownerMailContent);
+                        this.respond(res,"",200);
+                    }catch(err){
+                        console.log(err);
+                        this.respond(res,JSON.stringify(err),err.code);
+                    }
+                return;
+                default:
+                    this.respond(res,"POST Requests are forbidden on this service",303);
+                return;
+            }
+        })
     }
 }
 

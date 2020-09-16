@@ -51,17 +51,3 @@ module.exports.run = (setup)=>{
 
     https.createServer(httpsOption,app).listen(443,()=>{logger.good("APP","Run",`LISTENING : 443`);})
 }
-
-/**
- * Private App methods
- */
-
-this.sendMail = (res,data,user)=>{
-    try{
-        mailer.sendMail(data.target,data.subject,data.message);
-        router.respond(res,"GOOD",200);
-    }catch(err){
-        console.log(err);
-        router.respond(res,JSON.stringify(err),err.code);
-    }
-}
