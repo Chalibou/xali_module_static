@@ -13,9 +13,6 @@ module.exports.templater = templater;
 module.exports.tools = tools;
 module.exports.mailer = mailer;
 
-
-
-
 /**
  * Core application
  * @param {Object} req HTTPS Request

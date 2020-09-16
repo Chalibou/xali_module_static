@@ -14,6 +14,18 @@ const logger = require("./logger.js");
 this.dictionary = {};
 
 /**
+ * Load a batch of languages in the current {@link module-templater} to be used in text translation
+ */
+fs.readdirSync(`${process.cwd()}/server/lang/`).forEach(file => {
+    const lang = file.split(".")[0];
+    if(file.split(".")[1]=="json"){
+        const data = fs.readFileSync(`${process.cwd()}/server/lang/${file}`,'utf-8')
+        this.dictionary[lang] = JSON.parse(data);
+        logger.log("TEMPLATES","Load",`Language ${lang} loaded`);
+    }
+});
+
+/**
  * Translate an text by replacing "#{key}" beacons with data from {@link module:templater.dictionary}
  * @param {String} file Path of the file to translate
  * @param {String} lang Language of translation
@@ -28,18 +40,6 @@ module.exports.translateData = (data,lang)=>{
         }
     )
 }
-
-/**
- * Load a batch of languages in the current {@link module-templater} to be used in text translation
- */
-fs.readdirSync(`${process.cwd()}/server/lang/`).forEach(file => {
-    const lang = file.split(".")[0];
-    if(file.split(".")[1]=="json"){
-        const data = fs.readFileSync(`${process.cwd()}/server/lang/${file}`,'utf-8')
-        this.dictionary[lang] = JSON.parse(data);
-        logger.log("TEMPLATES","Load",`Language ${lang} loaded`);
-    }
-});
 
 //Filling templates
 

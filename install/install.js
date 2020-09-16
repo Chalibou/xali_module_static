@@ -25,7 +25,9 @@ fs.writeFile(`./../../server/mail/dkim_public.key`, '',{ flag: 'wx' },callback);
 
 //Copying files from templates
 copy('css/index.css', 'client/css/index.css');
+copy('css/common.css', 'client/css/common.css');
 copy('js/index.js', 'client/js/index.js');
+copy('js/common.js', 'client/js/common.js');
 copy('js/lang/en-EN.js','client/js/lang/en-EN.js');
 copy('js/lang/es-ES.js','client/js/lang/es-ES.js');
 copy('images/logo.svg', 'client/images/logo.svg');
