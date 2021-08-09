@@ -204,15 +204,15 @@ footer .flag{
     border: none;
 }
 footer .french{
-    background:url("images/french.png") no-repeat center center;
+    background:url("/images/french.png") no-repeat center center;
     background-size: 100%;
 }
 footer .spanish{
-    background:url("images/spanish.png") no-repeat center center;
+    background:url("/images/spanish.png") no-repeat center center;
     background-size: 100%;
 }
 footer .english{
-    background:url("images/english.png") no-repeat center center;
+    background:url("/images/english.png") no-repeat center center;
     background-size: 100%;
 }
 
